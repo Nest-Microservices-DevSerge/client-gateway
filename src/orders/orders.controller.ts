@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param, Inject, Query } from '@nestjs/common';
 import { ClientProxy, Payload } from '@nestjs/microservices';
 import { PaginationDto } from 'src/common';
-import { CreateOrderDto } from 'src/common/dto/create-order.dto';
+import { CreateOrderDto } from 'src/orders/dto/create-order.dto';
 import { ORDER_SERVICE } from 'src/config/services';
 
 @Controller('orders')
