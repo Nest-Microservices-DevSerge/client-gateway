@@ -6,6 +6,8 @@ import {
   Inject,
   Query,
   ParseUUIDPipe,
+  Patch,
+  Body,
 } from '@nestjs/common';
 import { ClientProxy, Payload, RpcException } from '@nestjs/microservices';
 import { CreateOrderDto } from 'src/orders/dto/create-order.dto';
@@ -55,6 +57,23 @@ export class OrdersController {
   ) {
     return this.ordersClient
       .send('findAllOrders', { ...paginationDto, status: statusDto.status })
+      .pipe(
+        catchError((err) => {
+          throw new RpcException(err);
+        }),
+      );
+  }
+
+  @Patch(':id')
+  async ChangeStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() statusDto: StatusDto,
+  ) {
+    return this.ordersClient
+      .send('changeOrderStatus', {
+        id,
+        status: statusDto.status,
+      })
       .pipe(
         catchError((err) => {
           throw new RpcException(err);
