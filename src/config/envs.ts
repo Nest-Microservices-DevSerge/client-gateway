@@ -1,11 +1,9 @@
 import 'dotenv/config';
 
 import * as joi from 'joi';
-import { NATS_SERVICE } from './services';
 
 interface EnvVars {
   PORT: number;
-
   NATS_SERVERS: string[];
 }
 
