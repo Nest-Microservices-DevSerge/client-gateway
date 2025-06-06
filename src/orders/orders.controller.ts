@@ -9,7 +9,7 @@ import {
   Patch,
   Body,
 } from '@nestjs/common';
-import { ClientProxy, Payload, RpcException } from '@nestjs/microservices';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { CreateOrderDto } from 'src/orders/dto/create-order.dto';
 import { catchError } from 'rxjs';
 import { OrderPaginationDto, StatusDto } from './dto';
@@ -22,7 +22,7 @@ export class OrdersController {
   constructor(@Inject(NATS_SERVICE) private readonly client: ClientProxy) {}
 
   @Post()
-  create(@Payload() createOrderDto: CreateOrderDto) {
+  create(@Body() createOrderDto: CreateOrderDto) {
     return this.client.send('createOrder', createOrderDto);
   }
 
